@@ -1,5 +1,7 @@
 package tpe;
 
+import java.util.ArrayList;
+
 public class Camion {
 
 	
@@ -7,6 +9,7 @@ public class Camion {
 	private String patente;
 	private boolean refrigerado;
 	private Integer capacidad;
+	private ArrayList<Paquete> productos;
 	
 	public Camion(Integer id, String patente, boolean refrigerado, Integer capacidad) {
 		super();
@@ -14,6 +17,7 @@ public class Camion {
 		this.patente = patente;
 		this.refrigerado = refrigerado;
 		this.capacidad = capacidad;
+		this.productos = new ArrayList<Paquete>();
 	}
 
 	public Integer getId() {
@@ -46,6 +50,15 @@ public class Camion {
 
 	public void setCapacidad(Integer capacidad) {
 		this.capacidad = capacidad;
+	}
+	
+	
+	public void asignarProducto(Paquete p) {
+		this.productos.add(p);
+	}
+	
+	public void quitarProducto(Paquete p) {
+		this.productos.remove(p);
 	}
 	
 	@Override
