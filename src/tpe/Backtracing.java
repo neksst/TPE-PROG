@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * se lleva registro del peso no asignado actual y se actualiza la mejor solucion
  * cuando se procesa el ultimo paquete y el peso no asignado es menor al mejor conocido
  * 
- * poda: si el peso no asignado actual ya es mayor o igual al mejor conocido, se corta.
+ * poda: si el peso no asignado actual ya es mayor o igual al mejor conocido, se corta
  */
 public class Backtracing {
 
