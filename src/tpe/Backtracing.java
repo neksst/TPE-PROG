@@ -2,58 +2,82 @@ package tpe;
 
 import java.util.ArrayList;
 
+/*
+ * Estrategia: se recorren los paquetes uno por uno (indice idx)
+ * para cada paquete se prueban todas las asignaciones a camiones cumpliendo las restricciones de refrigeracion y capacidad
+ * y también la opcion de no asignarlo
+ * se lleva registro del peso no asignado actual y se actualiza la mejor solucion
+ * cuando se procesa el ultimo paquete y el peso no asignado es menor al mejor conocido
+ * 
+ * Poda: si el peso no asignado actual ya es mayor o igual al mejor conocido, se corta.
+ */
 public class Backtracing {
-	private ArrayList<Camion> mejorSolucion;
-	private int mejorPesoAsignado = -1;
 
-	public ArrayList<Camion> resolver(ArrayList<Camion> camiones, ArrayList<Paquete> paquetes) {
+	private ArrayList<Camion> mejorSolucion;
+	private int mejorPesoNoAsignado;
+	private int estadosGenerados;
+
+	public void resolver(ArrayList<Camion> camiones, ArrayList<Paquete> paquetes) {
+		this.mejorPesoNoAsignado = Integer.MAX_VALUE;
+		this.estadosGenerados = 0;
+		this.mejorSolucion = null;
 
 		backtracking(camiones, paquetes, 0, 0);
-
-		return mejorSolucion;
 	}
 
-	private void backtracking(ArrayList<Camion> camiones, ArrayList<Paquete> productos, int idx, int pesoAsignado) {
+	private void backtracking(ArrayList<Camion> camiones, ArrayList<Paquete> paquetes, int idx, int pesoNoAsignado) {
 
-		if (idx == productos.size()) {
+		estadosGenerados++;
 
-			if (pesoAsignado > mejorPesoAsignado) {
-				mejorPesoAsignado = pesoAsignado;
-				mejorSolucion = copiarCamiones(camiones);
-			}
+		// poda: si ya supera la mejor solucion no seguir
+		if (pesoNoAsignado >= mejorPesoNoAsignado)
+			return;
 
+		if (idx == paquetes.size()) {
+			mejorPesoNoAsignado = pesoNoAsignado;
+			mejorSolucion = copiarCamiones(camiones);
 			return;
 		}
 
-		Paquete p = productos.get(idx);
+		Paquete p = paquetes.get(idx);
 
-		// Intentar asignarlo a cada camión válido
 		for (Camion c : camiones) {
-
 			boolean cumpleRefrigeracion = !p.isContiene_alimentos() || c.isRefrigerado();
-
-			boolean cumpleCapacidad = c.getCapacidad() + p.getPeso() <= c.getCapacidad();
+			boolean cumpleCapacidad = c.getCargaActual() + p.getPeso() <= c.getCapacidad();
 
 			if (cumpleRefrigeracion && cumpleCapacidad) {
-
 				c.asignarProducto(p);
-
-				backtracking(camiones, productos, idx + 1, pesoAsignado + p.getPeso());
-
+				backtracking(camiones, paquetes, idx + 1, pesoNoAsignado);
 				c.quitarProducto(p);
 			}
 		}
 
+		// no asignar el paquete a ningún camión
+		backtracking(camiones, paquetes, idx + 1, pesoNoAsignado + p.getPeso());
 	}
 
+	// se copian los camiones para guardar el estado actual sin que el backtracking lo modifique
+
 	private ArrayList<Camion> copiarCamiones(ArrayList<Camion> camiones) {
-
 		ArrayList<Camion> copia = new ArrayList<>();
-
 		for (Camion c : camiones) {
-			copia.add(c); // 
+			Camion nuevo = new Camion(c.getId(), c.getPatente(), c.isRefrigerado(), c.getCapacidad());
+			for (Paquete p : c.getProductos())
+				nuevo.asignarProducto(p);
+			copia.add(nuevo);
 		}
-
 		return copia;
+	}
+
+	public ArrayList<Camion> getMejorSolucion() {
+		return mejorSolucion;
+	}
+
+	public int getMejorPesoNoAsignado() {
+		return mejorPesoNoAsignado;
+	}
+
+	public int getEstadosGenerados() {
+		return estadosGenerados;
 	}
 }

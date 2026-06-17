@@ -9,6 +9,7 @@ public class Camion {
 	private String patente;
 	private boolean refrigerado;
 	private Integer capacidad;
+	private Integer cargaActual;
 	private ArrayList<Paquete> productos;
 	
 	public Camion(Integer id, String patente, boolean refrigerado, Integer capacidad) {
@@ -17,6 +18,7 @@ public class Camion {
 		this.patente = patente;
 		this.refrigerado = refrigerado;
 		this.capacidad = capacidad;
+		this.cargaActual = 0;
 		this.productos = new ArrayList<Paquete>();
 	}
 
@@ -53,18 +55,28 @@ public class Camion {
 	}
 	
 	
+	public Integer getCargaActual() {
+		return cargaActual;
+	}
+
+	public ArrayList<Paquete> getProductos() {
+		return productos;
+	}
+
 	public void asignarProducto(Paquete p) {
 		this.productos.add(p);
+		this.cargaActual += p.getPeso();
 	}
 	
 	public void quitarProducto(Paquete p) {
 		this.productos.remove(p);
+		this.cargaActual -= p.getPeso();
 	}
 	
 	@Override
 	public String toString() {
-		return "Camion [id=" + id + ", patente=" + patente + ", refrigerado=" + refrigerado + ", capacidad=" + capacidad
-				+ "]";
+		return "Camion [id=" + id + ", patente=" + patente + ", refrigerado=" + refrigerado
+				+ ", capacidad=" + capacidad + ", cargaActual=" + cargaActual + ", paquetes=" + productos + "]";
 	}
 
 	
