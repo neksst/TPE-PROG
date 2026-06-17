@@ -5,11 +5,11 @@ import java.util.ArrayList;
 /*
  * Estrategia: se recorren los paquetes uno por uno (indice idx)
  * para cada paquete se prueban todas las asignaciones a camiones cumpliendo las restricciones de refrigeracion y capacidad
- * y también la opcion de no asignarlo
+ * y tambien la opcion de no asignarlo
  * se lleva registro del peso no asignado actual y se actualiza la mejor solucion
  * cuando se procesa el ultimo paquete y el peso no asignado es menor al mejor conocido
  * 
- * Poda: si el peso no asignado actual ya es mayor o igual al mejor conocido, se corta.
+ * poda: si el peso no asignado actual ya es mayor o igual al mejor conocido, se corta.
  */
 public class Backtracing {
 
