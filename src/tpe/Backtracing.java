@@ -10,6 +10,10 @@ import java.util.ArrayList;
  * cuando se procesa el ultimo paquete y el peso no asignado es menor al mejor conocido
  * 
  * poda: si el peso no asignado actual ya es mayor o igual al mejor conocido, se corta
+ *
+ * complejidad temporal: O((C+1)^N)
+ * N = cantidad de paquetes, C = cantidad de camiones
+ * por cada paquete hay C posibles asignaciones mas la opcion de no asignarlo
  */
 public class Backtracing {
 
@@ -52,7 +56,6 @@ public class Backtracing {
 			}
 		}
 
-		// no asignar el paquete a ningún camión
 		backtracking(camiones, paquetes, idx + 1, pesoNoAsignado + p.getPeso());
 	}
 
