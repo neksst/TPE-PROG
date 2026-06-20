@@ -17,6 +17,8 @@ public class Servicios {
 	/*
 	 * Expresar la complejidad temporal del constructor.
 	 */
+	
+	// O(C + P) C -> Carga de camiones + P -> Carga de paquetes
 	public Servicios(String pathCamiones, String pathPaquetes) {
 		this.camiones = new LinkedList<Camion>();
 		this.paquetes = new LinkedList<Paquete>();
@@ -32,6 +34,8 @@ public class Servicios {
 	/*
 	 * Expresar la complejidad temporal del servicio 1.
 	 */
+	
+	// O(1) Consulta de hashmap
 	public Paquete servicio1(String codigoPaquete) {
 		return this.PaquetesMap.get(codigoPaquete);
 	}
@@ -55,8 +59,16 @@ public class Servicios {
 	/*
 	 * Expresar la complejidad temporal del servicio 3.
 	 */
+	
+	// O(P) Explora los paquetes de la lista
 	public List<Paquete> servicio3(int urgenciaMinima, int urgenciaMaxima) {
-		return new ArrayList<Paquete>();
+		LinkedList<Paquete> res = new LinkedList<Paquete>();
+		for(Paquete p : this.paquetes) {
+			if((p.getNivel_urgencia() >=  urgenciaMinima) && (p.getNivel_urgencia() <= urgenciaMaxima)) {
+				res.add(p);
+			}
+		}
+		return res;
 	}
 
 }

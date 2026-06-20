@@ -1,6 +1,6 @@
 package tpe;
 
-public class Paquete {
+public class Paquete implements Comparable<Paquete>{
 
 	private Integer id;
 	private String codigo_paquete;
@@ -61,6 +61,12 @@ public class Paquete {
 	public String toString() {
 		return "Paquete [id=" + id + ", codigo_paquete=" + codigo_paquete + ", peso=" + peso + ", contiene_alimentos="
 				+ contiene_alimentos + ", nivel_urgencia=" + nivel_urgencia + "]";
+	}
+
+	@Override
+	public int compareTo(Paquete o) {
+		// TODO Auto-generated method stub
+		return o.getPeso() - this.getPeso();
 	}
 	
 	
