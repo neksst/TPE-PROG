@@ -22,7 +22,7 @@ public class PaqueteLoader {
 	             Integer id = Integer.parseInt(datos[0]);
 	             String codigo = datos[1];
 	             Integer peso = Integer.parseInt(datos[2]);
-	             boolean contieneAlimentos = Boolean.parseBoolean(datos[3]);
+	             boolean contieneAlimentos = datos[3].equals("1");
 	             Integer nivelUrgencia = Integer.parseInt(datos[4]);
 
 	             paquetes.add(new Paquete(id,codigo,peso,contieneAlimentos,nivelUrgencia));

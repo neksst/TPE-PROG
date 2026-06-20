@@ -5,15 +5,20 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
+//Completar con las estructuras y métodos privados que se
+//requieran.
 
 public class Servicios {
 
 	private LinkedList<Paquete> paquetes;
 	private LinkedList<Camion> camiones;
 	private HashMap<String, Paquete> PaquetesMap;
-	private ArrayList<Paquete>[] paquetesPorUrgencia;
 
-
+	/*
+	 * Expresar la complejidad temporal del constructor.
+	 */
+	
+	// O(C + P) C -> Carga de camiones + P -> Carga de paquetes
 	public Servicios(String pathCamiones, String pathPaquetes) {
 		this.camiones = new LinkedList<Camion>();
 		this.paquetes = new LinkedList<Paquete>();
@@ -21,22 +26,23 @@ public class Servicios {
 
 		this.camiones = CamionLoader.loadCamiones(pathCamiones);
 		this.paquetes = PaqueteLoader.loadPaquete(pathPaquetes);
-		this.paquetesPorUrgencia = new ArrayList[101];
 		for (Paquete p : this.paquetes) {
 			this.PaquetesMap.put(p.getCodigo_paquete(), p);
-			int u = p.getNivel_urgencia();
-			if (this.paquetesPorUrgencia[u] == null)
-				this.paquetesPorUrgencia[u] = new ArrayList<>();
-			this.paquetesPorUrgencia[u].add(p);
 		}
 	}
 
-
+	/*
+	 * Expresar la complejidad temporal del servicio 1.
+	 */
+	
+	// O(1) Consulta de hashmap
 	public Paquete servicio1(String codigoPaquete) {
 		return this.PaquetesMap.get(codigoPaquete);
 	}
 
-	
+	/*
+	 * Expresar la complejidad temporal del servicio 2.
+	 */
 	public List<Paquete> servicio2(boolean contieneAlimentos) {
 
 		ArrayList<Paquete> l = new ArrayList<>();
@@ -50,14 +56,19 @@ public class Servicios {
 
 	}
 
-
+	/*
+	 * Expresar la complejidad temporal del servicio 3.
+	 */
+	
+	// O(P) Explora los paquetes de la lista
 	public List<Paquete> servicio3(int urgenciaMinima, int urgenciaMaxima) {
-		ArrayList<Paquete> resultado = new ArrayList<>();
-		for (int i = urgenciaMinima; i <= urgenciaMaxima; i++) {
-			if (this.paquetesPorUrgencia[i] != null)
-				resultado.addAll(this.paquetesPorUrgencia[i]);
+		LinkedList<Paquete> res = new LinkedList<Paquete>();
+		for(Paquete p : this.paquetes) {
+			if((p.getNivel_urgencia() >=  urgenciaMinima) && (p.getNivel_urgencia() <= urgenciaMaxima)) {
+				res.add(p);
+			}
 		}
-		return resultado;
+		return res;
 	}
 
 }
