@@ -15,14 +15,14 @@ public class PaqueteLoader {
 
 		    LinkedList<Paquete>  paquetes = new LinkedList<>();
 	    try (BufferedReader br = new BufferedReader(new FileReader(path))) {
-
+	        br.readLine(); // saltar la primera linea con el total de paquetes
 	        while ((linea = br.readLine()) != null) {
 	        	 String[] datos = linea.split(";");
 
 	             Integer id = Integer.parseInt(datos[0]);
 	             String codigo = datos[1];
 	             Integer peso = Integer.parseInt(datos[2]);
-	             boolean contieneAlimentos = Boolean.parseBoolean(datos[3]);
+	             boolean contieneAlimentos = datos[3].equals("1");
 	             Integer nivelUrgencia = Integer.parseInt(datos[4]);
 
 	             paquetes.add(new Paquete(id,codigo,peso,contieneAlimentos,nivelUrgencia));
