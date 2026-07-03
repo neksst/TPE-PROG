@@ -1,6 +1,7 @@
 package tpe;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 /*
  * Estrategia: se recorren los paquetes uno por uno (indice idx)
@@ -15,13 +16,13 @@ import java.util.ArrayList;
  * N = cantidad de paquetes, C = cantidad de camiones
  * por cada paquete hay C posibles asignaciones mas la opcion de no asignarlo
  */
-public class Backtracing {
+public class Backtracking {
 
-	private ArrayList<Camion> mejorSolucion;
+	private LinkedList<Camion> mejorSolucion;
 	private int mejorPesoNoAsignado;
 	private int estadosGenerados;
 
-	public void resolver(ArrayList<Camion> camiones, ArrayList<Paquete> paquetes) {
+	public void resolver(LinkedList<Camion> camiones, LinkedList<Paquete> paquetes) {
 		this.mejorPesoNoAsignado = Integer.MAX_VALUE;
 		this.estadosGenerados = 0;
 		this.mejorSolucion = null;
@@ -29,7 +30,7 @@ public class Backtracing {
 		backtracking(camiones, paquetes, 0, 0);
 	}
 
-	private void backtracking(ArrayList<Camion> camiones, ArrayList<Paquete> paquetes, int idx, int pesoNoAsignado) {
+	private void backtracking(LinkedList<Camion> camiones, LinkedList<Paquete> paquetes, int idx, int pesoNoAsignado) {
 
 		estadosGenerados++;
 
@@ -61,8 +62,8 @@ public class Backtracing {
 
 	// se copian los camiones para guardar el estado actual sin que el backtracking lo modifique
 
-	private ArrayList<Camion> copiarCamiones(ArrayList<Camion> camiones) {
-		ArrayList<Camion> copia = new ArrayList<>();
+	private LinkedList<Camion> copiarCamiones(LinkedList<Camion> camiones) {
+		LinkedList<Camion> copia = new LinkedList<>();
 		for (Camion c : camiones) {
 			Camion nuevo = new Camion(c.getId(), c.getPatente(), c.isRefrigerado(), c.getCapacidad());
 			for (Paquete p : c.getProductos())
@@ -72,7 +73,7 @@ public class Backtracing {
 		return copia;
 	}
 
-	public ArrayList<Camion> getMejorSolucion() {
+	public LinkedList<Camion> getMejorSolucion() {
 		return mejorSolucion;
 	}
 

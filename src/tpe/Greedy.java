@@ -1,6 +1,9 @@
+
 package tpe;
 
-import java.util.ArrayList;
+
+import java.util.Collections;
+import java.util.LinkedList;
 
 /*
  * estrategia: se ordenan los paquetes por peso descendente y se asigna cada uno
@@ -14,19 +17,18 @@ import java.util.ArrayList;
  */
 public class Greedy {
 
-	private ArrayList<Camion> solucion;
+	private LinkedList<Camion> solucion;
 	private int pesoNoAsignado;
 	private int candidatosConsiderados;
 
-	public void resolver(ArrayList<Camion> camiones, ArrayList<Paquete> paquetes) {
+	public void resolver(LinkedList<Camion> camiones, LinkedList<Paquete> paquetes) {
 		this.pesoNoAsignado = 0;
 		this.candidatosConsiderados = 0;
 		this.solucion = camiones;
 
-		ArrayList<Paquete> ordenados = new ArrayList<>(paquetes);
-		ordenados.sort((a, b) -> b.getPeso() - a.getPeso());
+		Collections.sort(paquetes);
 
-		for (Paquete p : ordenados) {
+		for (Paquete p : paquetes) {
 			boolean asignado = false;
 
 			for (Camion c : camiones) {
@@ -47,7 +49,7 @@ public class Greedy {
 		}
 	}
 
-	public ArrayList<Camion> getSolucion() {
+	public LinkedList<Camion> getSolucion() {
 		return solucion;
 	}
 
