@@ -15,7 +15,7 @@ public class PaqueteLoader {
 
 		    LinkedList<Paquete>  paquetes = new LinkedList<>();
 	    try (BufferedReader br = new BufferedReader(new FileReader(path))) {
-
+	        br.readLine(); // saltar la primera linea con el total de paquetes
 	        while ((linea = br.readLine()) != null) {
 	        	 String[] datos = linea.split(";");
 

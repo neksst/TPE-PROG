@@ -13,13 +13,13 @@ public class CamionLoader {
 
 	    LinkedList<Camion>  camiones = new LinkedList<>();
     try (BufferedReader br = new BufferedReader(new FileReader(path))) {
-
+        br.readLine(); // saltar la primera linea con el total de camiones
         while ((linea = br.readLine()) != null) {
         	 String[] datos = linea.split(";");
 
              Integer id = Integer.parseInt(datos[0]);
              String patente = datos[1];
-             boolean refrigerado = Boolean.parseBoolean(datos[2]);
+             boolean refrigerado = datos[2].equals("1");
              Integer capacidad = Integer.parseInt(datos[3]);
 
              camiones.add(new Camion(id,patente,refrigerado,capacidad));

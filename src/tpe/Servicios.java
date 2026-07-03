@@ -15,6 +15,9 @@ public class Servicios {
 	private HashMap<String, Paquete> PaquetesMap;
 
 	/*
+	 * Complejidad temporal del constructor: O(N)
+	 * N = cantidad de paquetes. Se recorre una vez para poblar el HashMap y el array de urgencias.
+	 */
 	 * Expresar la complejidad temporal del constructor.
 	 */
 	
@@ -31,6 +34,11 @@ public class Servicios {
 		}
 	}
 
+
+	/*
+	 * Complejidad temporal del servicio 1: O(1)
+	 * Acceso directo al HashMap por codigo de paquete.
+	 */
 	/*
 	 * Expresar la complejidad temporal del servicio 1.
 	 */
@@ -40,6 +48,10 @@ public class Servicios {
 		return this.PaquetesMap.get(codigoPaquete);
 	}
 
+	
+	/*
+	 * Complejidad temporal del servicio 2: O(N)
+	 * N = cantidad de paquetes. Se recorre la lista completa para filtrar.
 	/*
 	 * Expresar la complejidad temporal del servicio 2.
 	 */
@@ -56,6 +68,11 @@ public class Servicios {
 
 	}
 
+
+	/*
+	 * Complejidad temporal del servicio 3: O(rango + resultado)
+	 * rango = urgenciaMaxima - urgenciaMinima. Se accede directamente por indice al array de urgencias.
+	 */
 	/*
 	 * Expresar la complejidad temporal del servicio 3.
 	 */
